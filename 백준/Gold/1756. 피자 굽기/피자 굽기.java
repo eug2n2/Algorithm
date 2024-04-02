@@ -1,79 +1,67 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.StringTokenizer;
 
 public class Main {
-	static int d;
-	static ArrayList<Node> oven;
+	/*
+	 * 1. oven은 위보다 아래가 넓은 것이 의미가 없다. 위보다 아래가 넓으면 위와 동일한 값으로 변경 2. 주어진 피자의 너비를 만족하는
+	 * 값을 oven에서 이분 탐색한다. 3-1. 주어진 오븐에 들어가지 않으면 0 출력 3-2. 들어가면 들어간 위치 아래는 해당 너비로 갱신
+	 */
+
+	static int D, N;
+	static int[] oven, pizzas;
+
 	public static void main(String[] args) throws IOException {
-		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(bf.readLine());
-		d =Integer.parseInt(st.nextToken()); //오븐의 깊이 
-		int n = Integer.parseInt(st.nextToken());
-		oven  = new ArrayList<>();
-		st = new StringTokenizer(bf.readLine());
-		int bd =Integer.MAX_VALUE;
-		for (int i =d-1;i>=0;i--) {
-			int tmp=Integer.parseInt(st.nextToken());
-			bd= Math.min(tmp, bd);
-			oven.add(new Node( bd, i));
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(in.readLine());
+
+		D = Integer.parseInt(st.nextToken()); // 오븐의 깊이
+		N = Integer.parseInt(st.nextToken()); // 피자의 개수
+		oven = new int[D];
+		pizzas = new int[N];
+
+		st = new StringTokenizer(in.readLine()); // 2번째 줄
+		int min = Integer.MAX_VALUE;
+		for (int i = D - 1; i >= 0; i--) {
+			int curr = Integer.parseInt(st.nextToken());
+			if (curr < min)
+				min = curr;
+			oven[i] = min;
 		}
-		Collections.reverse(oven);
+
+		st = new StringTokenizer(in.readLine()); // 3번째 줄
+		for (int i = 0; i < N; i++) {
+			pizzas[i] = Integer.parseInt(st.nextToken());
+		}
+
+		// 이분 탐색
+		int left = 0;
+		int right = D - 1;
+		int mid = 0;
+		int ans = 0;
 		boolean avail = true;
-		int ans =0;
-		int di=0;
-		st = new StringTokenizer(bf.readLine());
-		for (int i =0;i<n;i++) {
-			int pizza =Integer.parseInt(st.nextToken()); 
-			if( di>=d && pizza>oven.get(d-1).plen) {
-				avail =false;
+		for (int i = 0; i < N; i++) {
+			int pizza = pizzas[i];
+			if (left>right || oven[right] < pizza) {
+				avail = false;
 				System.out.println(0);
 				break;
-			}else {
-				di = binearySearch(pizza,di);
-				if(di ==Integer.MAX_VALUE) {
-					avail =false;
-					System.out.println(0);
-					break;
-				}
-				ans =Math.max(ans,oven.get(di).idx);
-				di++;
 			}
-		}
-		if(avail) System.out.println(d-ans);
-		
-	} 
-	public static int binearySearch(int target,int di) {
-		int start=di  ;
-		int end = oven.size()-1;
-		int answer= Integer.MAX_VALUE;
-		while(start<=end) {
-			int mid= (start+end)/2;
-			if(oven.get(mid).plen>= target) {
-				answer =mid;
-				end = mid-1;
-			}else {
-				start = mid+1;
+			while (avail && left <= right) {
+				mid = (left + right) / 2;
+				if (oven[mid] >= pizza) {
+					ans = mid;
+					right = mid - 1;
+				} else
+					left = mid + 1;
 			}
+
+			left = ans + 1;
+			right = D - 1;
 		}
-		return answer;
+		if(avail) {
+		System.out.println(D - ans);
+		}
 	}
 }
-	class Node implements Comparable<Node> {
-	    int plen;
-	    int idx;
-
-	    public Node(int plen, int idx) {
-	        this.plen = plen;
-	        this.idx = idx;
-	    }
-
-	    public int compareTo(Node o) {
-	        if (o.plen == this.plen) return this.idx - o.idx;
-	        return this.plen - o.plen;
-	    }
-	}
-
