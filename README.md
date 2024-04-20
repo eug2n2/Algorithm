@@ -1,2 +1,3 @@
 # Algorithm
-백준 알고리즘 공부 코드 정리 용
+백준 , 프로그래머스 문제 풀이
+주 언어 : Java, MySQL, Python
