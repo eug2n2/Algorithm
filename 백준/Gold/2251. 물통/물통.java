@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -45,10 +44,6 @@ public class Main {
 				visited[0][b][a + c] = true;
 				dfs(0, b, a + c);
 			}
-			if (a + c > csize && c < csize && !visited[a - (csize - c)][b][csize]) {
-				visited[a - (csize - c)][b][csize] = true;
-				dfs(a - (csize - c), b, csize);
-			}
 		}
 		if (b != 0) {
 			if (b + a <= asize && !visited[a + b][0][c]) {
@@ -62,10 +57,6 @@ public class Main {
 			if (b + c <= csize && !visited[a][0][b + c]) {
 				visited[a][0][b + c] = true;
 				dfs(a, 0, b + c);
-			}
-			if (b + c > csize && c < csize && !visited[a][b - (csize - c)][csize]) {
-				visited[a][b - (csize - c)][csize] = true;
-				dfs(a, b - (csize - c), csize);
 			}
 		}
 		if (c != 0) {
