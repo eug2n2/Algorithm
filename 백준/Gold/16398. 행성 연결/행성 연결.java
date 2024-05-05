@@ -16,7 +16,7 @@ public class Main {
 	}
 	public static int find(int x) {
 		if(x==parent[x]) return x;
-		else return parent[x] =find(parent[x]);
+		return parent[x] =find(parent[x]);
 	}
 	public static void kruskal (int[][]graph) {
 		long cost =0;
@@ -40,10 +40,12 @@ public class Main {
 		for(int i=0;i<n;i++) {
 		    StringTokenizer st = new StringTokenizer(bf.readLine());
 		    for(int j=0;j<n;j++) {
+                int w =Integer.parseInt(st.nextToken());
+                if (i >= j) continue;
 		    	int idx = i*n+ j;
 		    	graph[idx][0]=i;
 		    	graph[idx][1]=j;
-		    	graph[idx][2]= Integer.parseInt(st.nextToken());
+		    	graph[idx][2]= w;
 		    }
 		}
 		Arrays.sort(graph, (o1, o2) -> o1[2] - o2[2]);
