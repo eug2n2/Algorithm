@@ -114,14 +114,6 @@ public class Main {
 
 	public static void cal(String str) {
 		int pick = 0;
-		HashMap<Integer, Integer> indexmap = new HashMap<>();
-		HashMap<Integer, Integer> remap = new HashMap<>();
-
-		for (int i = 0; i < 5; i++) {
-			indexmap.put((str.charAt(i)) * (-1), i); // 거리 값에 따른 알파벳 인덱스 map
-			remap.put(i, str.charAt(i) - 65);
-		}
-
 		long[] arr = new long[5]; // abcde 간선개수 배열
 		for (int i = 0; i < 5 && pick < n - 1; i++) {
 			int idx = str.charAt(i) - 'A';
