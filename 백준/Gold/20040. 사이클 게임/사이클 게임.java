@@ -32,7 +32,7 @@ public class Main {
 	}
 	static int find(int a) {
 		if(parent[a]==a) return a;
-		return find(parent[a]);
+		return  parent[a] = find(parent[a]);
 	}
 	static boolean union(int a, int b) {
 		int pa = find(a);
