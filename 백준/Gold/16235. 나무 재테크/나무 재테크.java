@@ -35,7 +35,7 @@ public class Main {
 			int z = Integer.parseInt(st.nextToken());
 			age[x][y].add(z);
 		}
-
+        Deque<Integer> tmp = new ArrayDeque<>();
 		int[][] di = { { -1, -1 }, { -1, 0 }, { -1, 1 }, { 0, -1 }, { 0, 1 }, { 1, -1 }, { 1, 0 }, { 1, 1 } };
 
 		// k년 동안 반복
@@ -44,7 +44,7 @@ public class Main {
 			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < n; j++) {
 					int tmpvitamin =0;
-					Deque<Integer> tmp = new ArrayDeque<>();
+					tmp = new ArrayDeque<>();
 					// 죽은 나무 처리
 					while(!age[i][j].isEmpty()) {
 						int currentAge = age[i][j].pollFirst();
