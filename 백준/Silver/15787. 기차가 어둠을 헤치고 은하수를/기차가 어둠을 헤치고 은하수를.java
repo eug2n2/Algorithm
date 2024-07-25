@@ -40,19 +40,13 @@ class Main {
                     break;
             }
         }
-        int answer =n;
         for(int i = 0; i < n; i++){
             String str="";
             for(int j = 0; j < 20; j++){
                 str+=train[i][j];
             }
-//            System.out.println(str);
-            if(set.contains(str)){
-               answer--;
-            }else{
-                set.add(str);
-            }
+            set.add(str);
         }
-        System.out.println(answer);
+        System.out.println(set.size());
     }
 }
