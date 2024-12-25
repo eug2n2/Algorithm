@@ -1,62 +1,42 @@
 import java.io.*;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
-public class Main {
+class Main {
     public static void main(String[] args) throws IOException {
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(bf.readLine());
-        StringTokenizer st = new StringTokenizer(bf.readLine());
-        Queue<Integer> q = new ArrayDeque<>();
-        for(int i =n;i>=1;i--){
-            q.add(i);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        int n = Integer.parseInt(br.readLine());
+
+        Deque<Integer> deque = new ArrayDeque<>();
+
+        String str = br.readLine();
+        String[] command = str.split(" ");
+        for(int i=1; i<=n; i++){
+            switch(command[n-i]){
+                case "1":
+                    deque.addFirst(i);
+                    break;
+                case "2":
+                    int temp = deque.pollFirst();
+                    deque.addFirst(i);
+                    deque.addFirst(temp);
+                    break;
+                case "3":
+                    deque.addLast(i);
+                    break;
+            }
         }
-        int[] card = new int[n];
-        int idx =0; // 1번째 빈자리
-        int idx2= 1;// 2번째 빈자리
-        int idx3=n-1; // 마지막 빈자리
-        for(int i =0 ; i<n;i++){
-            int m = Integer.parseInt(st.nextToken());
-            switch(m){
-                case 1:
-                    card[idx]= q.poll();
-                    break;
-                case 2:
-                    card[idx2]=q.poll();
-                    break;
 
-                case 3:
-                    card[idx3]= q.poll();
-//                    System.out.println(card[idx3]+" "+idx3 +" i "+i);
-                    break;
-            }
-            while (idx < n) {
-                if(card[idx]!=0){
-                    idx++;
-                }else{
-                    break;
-                }
-            }
-
-            while (idx2 < n) {
-                if(idx2==idx || card[idx2]!=0){
-                    idx2++;
-                }else{
-                    break;
-                }
-            }
-            while (idx3 >=0) {
-                if( card[idx3]!=0){
-                    idx3--;
-                }else{
-                    break;
-                }
-            }
-            }
         StringBuilder sb = new StringBuilder();
-        for(int i =0;i<n;i++){
-            sb.append(card[i]+" ");
-        }
-        System.out.println(sb);
+        for(int i=0; i<n; i++){
+            sb.append(deque.pollFirst()).append(" ");
         }
 
+        bw.write(sb.toString());
+
+        br.close();
+        bw.close();
+    }
 }
