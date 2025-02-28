@@ -4,6 +4,8 @@ class Solution {
         m = board.length;
         n= board[0].length;
         // 여기서 1을 추가해서 배열을 만드는 이유는 
+        // diff[r2+1][c2+1] +=dtmp; 누적합 시 범위를 초과할 수 있기 때문
+        
         int[][] diff = new int[m+1][n+1];
         int answer = 0;
         int s = skill.length;
@@ -34,6 +36,7 @@ class Solution {
                 diff[j][i] += diff[j-1][i]; 
             }
         }
+        
         for(int i =0;i<m;i++){
             for(int j =0;j<n;j++){
                 board[i][j] +=diff[i][j];
