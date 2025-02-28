@@ -1,11 +1,10 @@
 class Solution {
-    static int m,n;
     public int solution(int[][] board, int[][] skill) {
-        m = board.length;
-        n= board[0].length;
+        int m = board.length;
+        int n= board[0].length;
+        
         // 여기서 1을 추가해서 배열을 만드는 이유는 
         // diff[r2+1][c2+1] +=dtmp; 누적합 시 범위를 초과할 수 있기 때문
-        
         int[][] diff = new int[m+1][n+1];
         int answer = 0;
         int s = skill.length;
