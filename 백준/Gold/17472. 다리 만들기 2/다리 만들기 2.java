@@ -51,14 +51,6 @@ public class Main {
             }
         }
 
-        // 넘버링 결과
-//        for(int i =0;i<n;i++){
-//            for (int j =0;j<m;j++){
-//                System.out.print(island[i][j]+" ");
-//            }
-//            System.out.println();
-//        }
-
         PriorityQueue<Bridge> pq = new PriorityQueue<>();
 
         // 가로 다리
@@ -75,7 +67,6 @@ public class Main {
                 } else if (map[i][j]==1 && island[i][j]!=memo[0] ){ // 다른섬 ...
                     int distmp =j-memo[1]-1;
                     if(distmp>1){
-//                        System.out.println(memo[0]+" 가로 "+island[i][j]+" "+ distmp);
                         pq.add(new Bridge(memo[0], island[i][j],distmp ));
                     }
 
@@ -95,13 +86,11 @@ public class Main {
                     memo[0]= island[i][j];
                     memo[1]=i;
                 }else if (map[i][j]==1 && island[i][j]==memo[0]){
-//                    System.out.println("세로 섬 변경"+memo[0]+ " "+ memo[1]+" -> "+i);
                     memo[1]=i; // 같은 섬
                 } else if (map[i][j]==1 && island[i][j]!=memo[0] ){ // 다른섬 ...
                     int distmp =i-memo[1]-1;
                     if(distmp>1){
-//                        System.out.println(memo[0]+" 세로 "+island[i][j]+" "+ distmp+" "+memo[1]+" "+i);
-                        pq.add(new Bridge(memo[0], island[i][j],distmp ));
+                     pq.add(new Bridge(memo[0], island[i][j],distmp ));
                     }
 
                     memo[0]= island[i][j];
@@ -158,7 +147,7 @@ public class Main {
         for(int di=0; di<4;di++){
             int x =  startX +dx[di];
             int y = startY+dy[di];
-            if(x<0|| y<0|| x>=n ||y>=m||map[x][y]==0||island[x][y]!=0){
+            if(x<0 || y<0|| x>=n || y>=m ||map[x][y]==0 || island[x][y]!=0){
                 continue;
             }
             bfs(x,y,num);
@@ -171,6 +160,5 @@ public class Main {
         }
         return find(parent[v]);
     }
-
 
 }
