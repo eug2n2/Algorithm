@@ -1,16 +1,16 @@
-n, m = map(int, input().split())  # 듣도 못한 사람 수, 보도 못한 사람 수
+import sys
+n, m = map(int, sys.stdin.readline().split())  # 듣도 못한 사람 수, 보도 못한 사람 수
 
 noListen = set()
 
 for _ in range(n):
-    name = input()
-    noListen.add(name)
+    noListen.add(str(sys.stdin.readline().strip()))
 
 noBoth = set()
 for _ in range(m):
-    name = input()
+    name = str(sys.stdin.readline().strip())
     if name in noListen:
-        noBoth.add(name) #듣보잡
+        noBoth.add(name)
 
 print(len(noBoth))
 for val in sorted(noBoth):
