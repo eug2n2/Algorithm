@@ -13,7 +13,7 @@ public class Main {
     static int count;
 
     // count : 이동한 칸의 수
-    public static void bfs(int i, int j, int[][] visited, int tmp) {
+    public static void dfs(int i, int j, int[][] visited, int tmp) {
         count = Math.max(count, tmp);
         for (int k = 0; k < 4; k++) {
             if ((dp[i][j] & (1 << k)) == 0) {
@@ -21,11 +21,9 @@ public class Main {
             }
             int di = dx[k] + i;
             int dj = dy[k] + j;
-            if (visited[di][dj] == 0) {
-                bfs(di, dj, visited, tmp + 1);
-            } else {
-                count = Math.max(count, tmp + visited[di][dj]);
-            }
+            
+            count = Math.max(count, tmp + visited[di][dj]);
+            
         }
     }
 
@@ -71,7 +69,7 @@ public class Main {
             int i = cur[1];
             int j = cur[2];
             count = 0;
-            bfs(i, j, visited, 1);
+            dfs(i, j, visited, 1);
             visited[i][j] = count;
             ans = Math.max(ans, count);
         }
